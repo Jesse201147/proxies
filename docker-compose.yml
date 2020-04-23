@@ -1,0 +1,19 @@
+version: "3"
+services:
+  py37:
+    build:
+      context: .
+      dockerfile: config/docker/python/dockerfile
+    volumes:
+      - /tmp/logs:/tmp
+      - .:/proxies
+    command: "sleep infinity"
+  redis:
+    image: redis:5.0.9
+    container_name: redis
+    restart: always
+    command: --appendonly yes
+    ports:
+      - 6379:6379
+    volumes:
+      - ./redis_data:/data
